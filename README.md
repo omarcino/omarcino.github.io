@@ -1,6 +1,6 @@
 ## Setting up github page
 Create repository with your username and make sure to make it public<br>
-For official detailed instruction go to:<br>
+For official detailed instruction go to:
 [GitHub Pages](https://pages.github.com/)
 
 ## Install Jekyll on your own host
@@ -17,11 +17,12 @@ reboot
 ```
 
 Install Ruby and dependencies (recommended as a ROOT)
+```
+sudo apt-get install ruby-full build-essential zlib1g-dev
 
-`sudo apt-get install ruby-full build-essential zlib1g-dev`
+```
 
 Jekyll recommends setting up a GEM installation directory for your user account (NO ROOT)
-
 ```
 cd
 echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
@@ -32,14 +33,15 @@ source ~/.bashrc
 
 ### Red Hat 9.2
 Check Red Hat version
-
-`cat /etc/redhat-release`
+```
+cat /etc/redhat-release
+```
 
 Install Ruby and dependencies
-
-`sudo dnf install ruby ruby-devel`
-
-`sudo dnf group install "Development Tools"`
+```
+sudo dnf install ruby ruby-devel
+sudo dnf group install "Development Tools"
+```
 
 Create a user
 ```
@@ -54,8 +56,9 @@ jekyll  ALL=(ALL) ALL
 ```
 
 Log in as the new user
-
-`su - jekyll`
+```
+su - jekyll
+```
 
 ## Setting up a blog site based on Jekyll
 Install jekyll and bundler gems
@@ -70,20 +73,24 @@ gem "jekyll"
 ```
 
 Install Jekyll with bundle
-
-`bundle install`
+```
+bundle install
+```
 
 Clone the repository
-
-`git clone https://github.com/omarcino/omarcino.github.io`
+```
+git clone https://github.com/omarcino/omarcino.github.io
+```
 
 Create jekyll site for your repository
-
-`cd omarcino.github.io/`
+```
+cd omarcino.github.io/
+```
 
 Create an index.html file and run jekyll server
-
-`jekyll serve --host=0.0.0.0 --port=4000`
+```
+jekyll serve --host=0.0.0.0 --port=4000
+```
 
 if everything ok. Remove user from sudoers
 
@@ -95,11 +102,17 @@ git add index.html
 git commit -m "Initial Index.html"
 git push -u origin main
 ```
-- Visit your web site
-
+Visit your web site<br>
 `https://omarcino.github.io/`
 
 ## Build your blog
+### Create your default layout
+- Create `_layout/default.html`. This file will contain all the headers like BootStrap, Awesome Fonts, Google Fonts, etc.
+ 
+- Make index.html use the layout
+
+Complete example you can find it on [Jekyll Layout](https://jekyllrb.com/docs/step-by-step/04-layouts/)
+
 
 
 
