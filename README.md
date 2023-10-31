@@ -1,8 +1,6 @@
 ## Setting up github page
-- Create repository with your username and make sure to make it public
-
-For official detailed instruction go to:
-
+Create repository with your username and make sure to make it public<br>
+For official detailed instruction go to:<br>
 [GitHub Pages](https://pages.github.com/)
 
 ## Install Jekyll on your own host
@@ -11,14 +9,12 @@ You should have the following Apps installed
 - RubyGems
 - GCC and Make
 ### Ubuntu example
-Update & Upgrade repositories/packages
-
-`sudo apt update`
-
-`sudo apt upgrade`
-
-`reboot`
-
+Update & Upgrade repositories/packages<br>
+```
+sudo apt update
+sudo apt upgrade
+reboot
+```
 
 Install Ruby and dependencies (recommended as a ROOT)
 
@@ -26,16 +22,13 @@ Install Ruby and dependencies (recommended as a ROOT)
 
 Jekyll recommends setting up a GEM installation directory for your user account (NO ROOT)
 
-`cd`
-
-`echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc`
-
-`echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc`
-
-`echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc`
-
-`source ~/.bashrc`
-
+```
+cd
+echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
+echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
+echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
 
 ### Red Hat 9.2
 Check Red Hat version
@@ -49,16 +42,16 @@ Install Ruby and dependencies
 `sudo dnf group install "Development Tools"`
 
 Create a user
-
-`sudo useradd jekyll`
-
-`sudo passwd jekyll`
+```
+sudo useradd jekyll
+sudo passwd jekyll
+```
 
 Temporarly add user in sudoers
-
-`sudo visudo`
-
-`jekyll  ALL=(ALL) ALL`
+```
+sudo visudo
+jekyll  ALL=(ALL) ALL
+```
 
 Log in as the new user
 
@@ -66,16 +59,15 @@ Log in as the new user
 
 ## Setting up a blog site based on Jekyll
 Install jekyll and bundler gems
-
-`gem install jekyll bundler`
-
-`bundle init`
-
+```
+gem install jekyll bundler
+bundle init
+```
 Edit GemFile and add Jekyll
-
-`vim Gemfile`
-
-`gem "jekyll"`
+```
+vim Gemfile
+gem "jekyll"
+```
 
 Install Jekyll with bundle
 
@@ -96,17 +88,13 @@ Create an index.html file and run jekyll server
 if everything ok. Remove user from sudoers
 
 Make sure to authenticate to github
-
-`git config --global omarcino.email "omarnina@gmail.com"`
-
-`git config --global user.name "Omar Nina"`
-
-`git add index.html`
-
-`git commit -m "Initial Index.html"`
-
-`git push -u origin main`
-
+```
+git config --global user.email "omarnina@gmail.com"
+git config --global user.name "Omar Nina"
+git add index.html
+git commit -m "Initial Index.html"
+git push -u origin main
+```
 - Visit your web site
 
 `https://omarcino.github.io/`
