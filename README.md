@@ -19,7 +19,6 @@ reboot
 Install Ruby and dependencies (recommended as a ROOT)
 ```
 sudo apt-get install ruby-full build-essential zlib1g-dev
-
 ```
 
 Jekyll recommends setting up a GEM installation directory for your user account (NO ROOT)
@@ -102,8 +101,7 @@ git add index.html
 git commit -m "Initial Index.html"
 git push -u origin main
 ```
-Visit your web site<br>
-`https://omarcino.github.io/`
+Visit your web site [https://omarcino.github.io/](https://omarcino.github.io/)
 
 ## Build your blog
 ### Create your default layout
