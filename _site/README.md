@@ -111,19 +111,6 @@ Visit your web site [https://omarcino.github.io/](https://omarcino.github.io/)
 
 Complete example you can find it on [Jekyll Layout](https://jekyllrb.com/docs/step-by-step/04-layouts/)
 
-### Include default header and footer
-- Create `_includes/navigation.html` and `_includes/footer.html`
-- Add header and footer to `_layout/default.html`
-```
-    {% include navigation.html %}
-    {{ content }}
-    {% include footer.html %}
-```
-
-For more detailed instructions go to [Jekyll Includes](https://jekyllrb.com/docs/step-by-step/05-includes/)
-
-
-
 
 
 
