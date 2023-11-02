@@ -122,6 +122,23 @@ Complete example you can find it on [Jekyll Layout](https://jekyllrb.com/docs/st
 
 For more detailed instructions go to [Jekyll Includes](https://jekyllrb.com/docs/step-by-step/05-includes/)
 
+### Data files with YAML
+- Create data file `_data/navigation.yml` and include something like
+```
+- name: Home
+  link: /
+```
+
+- Use the YAML data in your `_includes/navigation.html` with a loop
+```
+{% for item in site.data.navigation %}
+    <li  class="nav-item">
+        <a class="nav-link" href="{{ item.link }}">{{ item.name }}</a>
+    </li>
+{% endfor %}
+```
+
+
 
 
 
