@@ -156,6 +156,34 @@ For detailed instructions [Jekyll and YAML](https://jekyllrb.com/docs/step-by-st
 
 More detailed instruction [Jekyll CSS](https://jekyllrb.com/docs/step-by-step/07-assets/)
 
+### How to start blogging
+
+- Create your default post layout `_layouts/post.html`
+```
+---
+layout: default
+---
+<h1>{{ page.title }}</h1>
+<p>{{ page.date | date_to_string }} - {{ page.author }}</p>
+
+{{ content }}
+```
+- List your posts with a foor loop. Example in `index.md`
+```
+{% for post in site.posts %}
+    {{ post.title }}
+    {{ post.excerpt }}
+    {{ post.url }}
+    {{ post.date | date: "%b %d, %Y" }}
+{% endfor %}
+```
+
+- Start creating your posts in `_posts/`. Each post file name has the following format:
+```
+YYYY-MM-DD-Title-of-the-Post.md
+```
+More detailed instruction at [Jekyll posts](https://jekyllrb.com/docs/step-by-step/08-blogging/)
+
 
 
 
