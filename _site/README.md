@@ -138,6 +138,24 @@ For more detailed instructions go to [Jekyll Includes](https://jekyllrb.com/docs
 {% endfor %}
 ```
 
+For detailed instructions [Jekyll and YAML](https://jekyllrb.com/docs/step-by-step/06-data-files/)
+
+### CSS on Jekyll
+- Create a `assets/css/styles.scss` file with the following content
+```
+---
+---
+@import "main";
+```
+`@import "main"` will link with `_sass/main.scss`. This is where all your CSS syntax will be
+
+- Reference the stylesheet in the default layout
+```
+<link rel="stylesheet" href="/assets/css/styles.css">
+```
+
+More detailed instruction [Jekyll CSS](https://jekyllrb.com/docs/step-by-step/07-assets/)
+
 
 
 

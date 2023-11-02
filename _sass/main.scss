@@ -1,0 +1,28 @@
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: url('/assets/images/tile.jpg') top left repeat;
+}
+
+.font-awesome > i {
+  margin-left: 10px;
+}
+
+.font-awesome {
+  margin-left: 10px;
+}
+
+// ul > li > .nav-link {
+//   font-weight: 700;
+// }
+
+// ul > li > .nav-link:hover {
+//   text-decoration: underline;
+// }
+
+footer {
+  background: #3e4249;
+  color: white;
+  padding: 20px;
+  margin: 50px 0 0 0;
+  font-size: 12px;
+}
