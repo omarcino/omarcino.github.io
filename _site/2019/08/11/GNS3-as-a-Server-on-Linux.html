@@ -52,6 +52,214 @@
 
 <p>One solutions, to avoid the issues mentioned. It is to install GNS3 on Linux as a server and then connect a GNS3 client from any other computer running Windows or Mac.</p>
 
+<p>Therefore, this document will show <strong>how to setup GNS3 as a server on Ubuntu and GNS3 as a client on Windows in more detail than the official documentation.</strong></p>
+
+<p><a href="https://youtu.be/4yelKWsP3OQ"><img src="https://img.youtube.com/vi/4yelKWsP3OQ/hqdefault.jpg" alt="Watch the video" /></a></p>
+
+<h2 id="pre-requisites">Pre requisites</h2>
+
+<p>It is fundamental to have basic experience on:</p>
+
+<ul>
+  <li>
+    <p>Using Packet Tracer and GNS3 on Windows or Linux with basic Routing and Switching configuration.</p>
+  </li>
+  <li>
+    <p>Installing Linux OSes.</p>
+  </li>
+  <li>
+    <p>Being a CCNA candidate.</p>
+  </li>
+  <li>
+    <p>Configuring a couple of cisco routers and switches.</p>
+  </li>
+</ul>
+
+<h2 id="installing-ubuntu-server-1604-lts">Installing Ubuntu Server 16.04 LTS</h2>
+
+<p>Even though Ubuntu released its 18.04 LTS version, the official GNS3 documentation suggest installing a fresh Ubuntu 16.04 LTS server. Thus, it is recommended to follow the next steps.</p>
+
+<p>Go to <a href="https://releases.ubuntu.com/xenial/">Ubuntu</a> and download the appropriate image according to your CPU architecture. For example for a Core i5 (AMD64)</p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/downloadUbuntu_16.04_1024x343.jpg" alt="Ubuntu1604" title="Download Ubuntu 16.04" /></p>
+
+<p><em>Example for Intel Corei5 AMD64</em></p>
+
+<p>It is a good option to create a bootable USB Ubuntu Server with <a href="https://rufus.ie/en/">Rufus</a></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/Rufus_Hashing_600x908.jpg" alt="RufusHashing" title="Rufus Hashing" /></p>
+
+<p><em>Get the hash values from Rufus</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/Rufus_DefaultOptions_477x785.jpg" alt="Rufus Default" title="Rufus Defaul" /></p>
+
+<p><em>Rufus default options</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/Rufus_DD_Image_Mode_612x785.jpg" alt="Rufus DD Image" title="Rufus DD Image" /></p>
+
+<p><em>DD image mode</em></p>
+
+<p>Start Ubuntu Installation. Follow the official documentation tutorial for <a href="https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-server-1604#0">Installing Ubuntu Server 16.04.</a> The main tips for a correct installation are:</p>
+
+<ul>
+  <li>
+    <p>Make sure to have Internet connectivity</p>
+  </li>
+  <li>
+    <p>Be very careful with disk partitioning</p>
+  </li>
+  <li>
+    <p>Choose NO AUTOMATIC UPDATES</p>
+  </li>
+  <li>
+    <p>Select standard system utilities and OpenSSH Server software</p>
+  </li>
+</ul>
+
+<p>After the installation has finished. Update and Upgrade the new fresh Ubuntu Server</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get update
+sudo apt-get upgrade
+sudo reboot
+</code></pre></div></div>
+
+<h2 id="gns3-server-installation">GNS3 Server Installation</h2>
+
+<p>Installing as a root</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /tmp/
+sudo curl https://raw.githubusercontent.com/GNS3/gns3-server/master/scripts/remote-install.sh &gt; gns3-remote-install.sh
+sudo bash gns3-remote-install.sh --with-openvpn --with-iou --with-i386-repository
+sudo reboot
+</code></pre></div></div>
+
+<p>Check GNS3 server version</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gns3server -v
+</code></pre></div></div>
+<p>Finally, download the VPN certificate from <em>/root/client.opvn</em></p>
+
+<h2 id="install-and-configure-openvpn-on-windows">Install and configure OpenVPN on Windows</h2>
+
+<p>Go to <a href="https://openvpn.net/community-downloads/">openvpn.net</a> and download the appropriate file</p>
+
+<p>Make sure the OpenVPN configuration file client.ovpn has the right server IP address</p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/openVPN_configFile_400x267.jpg" alt="OpenVPN config file" title="OpenVPN config file" /></p>
+
+<p><em>OpenVPN configuration file</em></p>
+
+<p>Import configuration file</p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/openVPN_import01_183x170.jpg" alt="OpenVPN Import 1" title="OpenVPN Import" /></p>
+
+<p><em>Go to Hidden Icons and right click on OpenVPN</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/openVPN_import02_234x171.jpg" alt="OpenVPN Import 2" title="OpenVPN Import" /></p>
+
+<p><em>Select Import file</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/openVPN_import03_619x363.jpg" alt="OpenVPN Import 3" title="OpenVPN Import" /></p>
+
+<p><em>Look up the configuration file</em></p>
+
+<blockquote>
+  <p>Notice: To be consistent the name of client.ovpn file was changed to gns3Server.ovpn, before to import</p>
+</blockquote>
+
+<p>Make a VPN connection</p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/openVPN_connect_325x365.jpg" alt="OpenVPN Connect" title="OpenVPN Connect" /></p>
+
+<p><em>Make a VPN connection</em></p>
+
+<p>The link <a href="http://172.16.253.1:3080/">http://172.16.253.1:3080/</a> should work</p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/openVPN_link_631x373.jpg" alt="OpenVPN Link" title="OpenVPN Link" /></p>
+
+<p><em>Making sure the VPN connection is working</em></p>
+
+<h2 id="set-up-gns3-client-on-windows">Set Up GNS3 Client on Windows</h2>
+
+<ul>
+  <li>
+    <p>Go to gns3 and download the version for windows</p>
+  </li>
+  <li>
+    <p>Install GNS3 with default options</p>
+  </li>
+  <li>
+    <p>Start and configure GNS3 as a client</p>
+  </li>
+</ul>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/GNS3client01_801x692.jpg" alt="GNS client configuration" title="GNS client configuration" /></p>
+
+<p><em>GNS client configuration</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/GNS3client02_802x688.jpg" alt="GNS Server IP" title="GNS Server IP" /></p>
+
+<p><em>Host is the IP address of the GNS3 server</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/GNS3client03_805x691.jpg" alt="GNS client summary" title="GNS client summary" /></p>
+
+<p><em>GNS3 client summary configuration</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/GNS3client04.jpg" alt="No appliances" title="No appliances" /></p>
+
+<p><em>Add later appliances</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/GNS3client05.jpg" alt="No projects" title="No projects" /></p>
+
+<p><em>Add later a project</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/GNS3client06_300x229.jpg" alt="GNS3 connection" title="GNS3 connection" /></p>
+
+<p><em>Main server should be with green light</em></p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>The advantages having GNS3 as a server on Linux are:</p>
+
+<ul>
+  <li>
+    <p>It is possible to configure almost any advanced Routing and Switching lab. Therefore, it is better than having a full hardware stack of routers and switches.</p>
+  </li>
+  <li>
+    <p>It speeds up the process of jumping from one topology to another. The same process with real cisco devices can take a much longer time</p>
+  </li>
+  <li>
+    <p>It has much more IOS commands than Packet Tracer</p>
+  </li>
+  <li>
+    <p>It is truly stable</p>
+  </li>
+  <li>
+    <p>It doesn’t consume a large quantities of computer resources as it does on a single Windows installation</p>
+  </li>
+  <li>
+    <p>It is possible to lab advanced switching</p>
+  </li>
+  <li>
+    <p>Very useful for CCNA and CCNP candidates</p>
+  </li>
+</ul>
+
+<h2 id="appendix-and-updates">Appendix and Updates</h2>
+
+<p>If it is needed to change network configuration on Linux</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vim /etc/network/interfaces
+</code></pre></div></div>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/UbuntuNetworkDHCP.jpg" alt="Ubuntu DHCP" title="Ubuntu DHCP" /></p>
+
+<p><em>Ubuntu DHCP</em></p>
+
+<p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/UbuntuNetworkStatic.jpg" alt="Ubuntu IP static" title="Ubuntu IP static" /></p>
+
+<p><em>Ubuntu IP static</em></p>
+
     <footer>
     <div class="container">
       <div class="row">
