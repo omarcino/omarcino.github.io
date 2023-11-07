@@ -179,6 +179,7 @@ If it is needed to change network configuration on Linux
 
 ```
 sudo vim /etc/network/interfaces
+
 ```
 
 ![Ubuntu DHCP](/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/UbuntuNetworkDHCP.jpg "Ubuntu DHCP")

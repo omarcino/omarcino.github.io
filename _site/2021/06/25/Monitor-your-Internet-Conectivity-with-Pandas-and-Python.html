@@ -50,7 +50,245 @@
 
 <p>At somes point you may ask if your Internet Connectivity (for your home, small/medium business, etc.) is working as your provider says it is working. Probably the Internet connection is fine while you are testing it in front of your desktop. But what about two hours later or at night? You do not have the time to test the Internet connection 24/7. So, that is why, it is important to automate the way you monitor your Internet Connectivity.</p>
 
-<p>To accomplish this task, we are going to use PANDAS as the core of the solution together with Pings, Linux shell scripting, Crontab tasks, Python and Jupyter Notebook</p>
+<p>To accomplish this task, we are going to use <strong>PANDAS</strong> as the core of the solution together with <strong>Pings, Linux shell scripting, Crontab tasks, Python and Jupyter Notebook.</strong></p>
+
+<h2 id="background">Background</h2>
+
+<p>One way to monitor the Internet Connectivity is through PINGs. The whole theory you can find it <a href="https://www.redhat.com/sysadmin/ping-traceroute-netstat">here</a>. But in summary: An ICMP packet is sent from any local computer to a destination computer on the Internet. And if remote computer responds in less than <strong>x [ms]</strong>, it means the connection is fine at that precise moment.</p>
+
+<blockquote>
+  <p>10 ≤ x ≤ 20 [ms]: If remote computer is close to local network</p>
+
+  <p>150 ≤ x ≤ 300 [ms]: If remote computer is in different State, Country or Continent</p>
+
+  <p>500 ≤ x ≤ 700 [ms]: Satellite communication</p>
+</blockquote>
+
+<p>Note. – The values also can vary according to the medium of communication like if it is fiber, DSL, coaxial, etc. But in general, those are good approximately values.</p>
+
+<p>Then. It must be considered the threshold of lost packets. In general, we can consider:</p>
+
+<blockquote>
+  <p>Packet lost &lt; 2%: You have a good Internet Connection</p>
+
+  <p>2% &lt;= Packet lost &lt; 5%: A warning signal that something is not quite good with the connection</p>
+
+  <p>Packet lost &gt;= 5%: Do something immediately. Your internet connection is really bad.</p>
+</blockquote>
+
+<h2 id="practical-case-of-study">Practical case of study</h2>
+
+<p>Let’s ping  the DNS google server 8.8.8.8</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 100 8.8.8.8
+</code></pre></div></div>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/pings100.jpg" alt="pings" title="pings statistics" /></p>
+
+<p><em>Pings statistics</em></p>
+
+<p>As you can see the media value is <strong>12.72 [ms]</strong></p>
+
+<p>Let’s group these ICMP request every 5 minutes.</p>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/5min.jpg" alt="5minutes" title="Five minutes" /></p>
+
+<p>Therefore <strong>x[%]</strong> of packet lost means:</p>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/packet_lost.jpg" alt="lostPackets" title="Lost packets" /></p>
+
+<p>Considering that a lost packet has a <strong>RTT ≥ 2000 [ms].</strong> We can use the following formula to know the equivalent of packet lost into <strong>[ms]</strong></p>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/pings100.jpg" alt="Equation" title="Equation" /></p>
+
+<p><em>Equation deducted by Omar N</em></p>
+
+<p>So, <strong>x[%]</strong> of packet lost in <strong>[ms]</strong> is:</p>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/pingStatus.jpg" alt="StatusPings" title="Status Pings" /></p>
+
+<h2 id="implementation">Implementation</h2>
+
+<p><a href="https://youtu.be/Gw3tYbxwSeo"><img src="https://img.youtube.com/vi/Gw3tYbxwSeo/hqdefault.jpg" alt="Watch the video" /></a></p>
+
+<h3 id="install-python3-venv">Install python3-venv</h3>
+
+<p>On Ubuntu</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install python3-venv
+</code></pre></div></div>
+
+<p>On Opensue</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zypper install python3-virtualenv
+</code></pre></div></div>
+
+<h3 id="create-the-virtual-environment">Create the Virtual Environment</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir directory-name
+cd directory-name
+python3 -m venv venv
+source venv/bin/activate
+</code></pre></div></div>
+
+<p>Install libraries</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install pandas
+pip install jupyter
+pip install matplotlib
+</code></pre></div></div>
+
+<h3 id="download-code-from-my-github">Download code from my GitHub</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/omarcino/pings-data-analysis/main/pingv4.sh
+</code></pre></div></div>
+
+<h3 id="make-scripting-executable">Make scripting executable</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod a+x pingv4.sh
+</code></pre></div></div>
+
+<p>Edit pingv4.sh</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Example
+
+host="8.8.8.8"
+directory="/root/pings"
+</code></pre></div></div>
+
+<h3 id="schedule-the-code-to-run-everytime-linux-stars">Schedule the code to run everytime Linux stars</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>contrab -e
+@reboot /pathdirectory/pingv4.sh
+</code></pre></div></div>
+
+<h3 id="verify-the-script-is-working">Verify the script is working</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tail 2021-05-31.ipv4-8.8.8.8
+</code></pre></div></div>
+
+<h3 id="start-jupyter-notebook-on-linux">Start Jupyter Notebook on Linux</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter notebook --no-browser --port=8888 --allow-root
+</code></pre></div></div>
+
+<p>You will receive a token value</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Example
+http://localhost:8888/?token=dfddfd@#23
+</code></pre></div></div>
+
+<h3 id="connect-windows-power-shell-to-linux-jupyter">Connect Windows Power Shell to Linux Jupyter</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -N -f -L localhost:8888:localhost:8888 linux-user00@linux-ip-address
+</code></pre></div></div>
+
+<h3 id="open-jupyter-notebook-on-your-browser">Open Jupyter Notebook on your browser</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Example
+http://localhost:8888/?token=tokeyGivenByLinuxServer
+</code></pre></div></div>
+
+<h3 id="execute-pandas-python-code">Execute Pandas, Python code</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Import libraries ###
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import matplotlib.dates as mdates
+from matplotlib.dates import DateFormatter
+from datetime import date
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Import log ping file ###
+# Make sure head is: date time size bytes from ip icmp ttl rtt ms
+pings = pd.read_csv("ping-log-file-name", sep=' ', engine='python')
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Formating datetime and rtt time ###
+pings['DateTime'] = pings.date + ' ' + pings.time.str.rstrip(":")
+pings.DateTime = pings.DateTime.astype('datetime64[ns]')
+pings.rtt = pings.rtt.str.strip("time=")
+#
+# Considering 2000 [ms] as lost packet
+pings.rtt = pings.rtt.fillna(2000)
+pings.rtt = pings.rtt.astype('float')
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### New df that only have DateTime and rtt ###
+pings_v2 = pings[['DateTime', 'rtt']].copy()
+pings_v2 = pings_v2.set_index(pings_v2.DateTime)
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Getting samples every 5 ### minutes
+pings5min = pings_v2.resample('5T').mean()
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### To zoom-in unccomment the next line ###
+#pings5min = pings5min.loc['2021-05-30 17:00:00':'2021-05-30 19:00:00']
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Re numerate index 0, 1, 2, ... ###
+pings5min = pings5min.reset_index(drop=False)
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Create figure and plot ### space
+fig, ax = plt.subplots(figsize=(15, 5))
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Add x-axis and y-axis ###
+ax.plot(pings5min.DateTime, pings5min.rtt, label='8.8.8.8')
+plt.title('Pings - 5/30/21', fontdict={'fontsize': 20})
+plt.xlabel('HH:MM')
+plt.ylabel('ms')
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Define the date format ###
+date_form = DateFormatter('%H:%M')
+ax.xaxis.set_major_formatter(date_form)
+plt.legend()
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### To save graph. Uncomment ### the next line
+#plt.savefig('SouthClayton', dpi=300)
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Get the graph ###
+plt.show()
+</code></pre></div></div>
+
+<h2 id="graph-examples">Graph examples</h2>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/Monday.png" alt="Monday" title="Monday" /></p>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/Tuesday.png" alt="Tuesday" title="Tuesday" /></p>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/Wednesday.png" alt="Wednesday" title="Wednesday" /></p>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/Thursday.png" alt="Thursday" title="Thursday" /></p>
+
+<p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/Friday.png" alt="Friday" title="Friday" /></p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<ul>
+  <li>
+    <p>We are able to test our Internet connectivity every single second, 24 hours a day, 7 days a week and so on</p>
+  </li>
+  <li>
+    <p>The data collected will be huge. Thousands of thousands of registers</p>
+  </li>
+  <li>
+    <p>Applications like Excel are not able to handle that amount of information</p>
+  </li>
+  <li>
+    <p>Pandas and Python let us analyze tons of Internet connectivity  data in just one sight/two seconds.</p>
+  </li>
+  <li>
+    <p>We will have graphs to create reports. And that could be useful, for example, to make claims to our Internet Provider.</p>
+  </li>
+</ul>
 
     <footer>
     <div class="container">
