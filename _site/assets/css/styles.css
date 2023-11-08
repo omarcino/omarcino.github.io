@@ -1,5 +1,6 @@
 body {
   font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1.2em;
   background: url("/assets/images/tile.jpg") top left repeat;
 }
 
@@ -17,6 +18,20 @@ footer {
   padding: 20px;
   margin: 50px 0 0 0;
   font-size: 12px;
+}
+
+blockquote {
+  font-size: 1.2em;
+  width: 100%;
+  margin: 50px auto;
+  font-family: Open Sans;
+  font-style: italic;
+  color: #555555;
+  padding: 1.2em 30px 1.2em 75px;
+  border-left: 8px solid #3E4249;
+  line-height: 1.6;
+  position: relative;
+  background: #EDEDED;
 }
 
 /*# sourceMappingURL=styles.css.map */

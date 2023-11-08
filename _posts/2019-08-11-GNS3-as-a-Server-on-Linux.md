@@ -59,7 +59,7 @@ Start Ubuntu Installation. Follow the official documentation tutorial for [Insta
 
 After the installation has finished. Update and Upgrade the new fresh Ubuntu Server
 
-```
+```Shell
 sudo apt-get update
 sudo apt-get upgrade
 sudo reboot
