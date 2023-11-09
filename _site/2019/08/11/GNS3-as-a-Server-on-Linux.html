@@ -16,8 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Highlighter HighlightJS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/pop.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/pojoaque.min.css">
   </head>
   <body>
   <div class="container">
@@ -131,16 +130,16 @@ sudo reboot
 
 <p>Installing as a root</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /tmp/
+<pre><code class="language-Shell">cd /tmp/
 sudo curl https://raw.githubusercontent.com/GNS3/gns3-server/master/scripts/remote-install.sh &gt; gns3-remote-install.sh
 sudo bash gns3-remote-install.sh --with-openvpn --with-iou --with-i386-repository
 sudo reboot
-</code></pre></div></div>
+</code></pre>
 
 <p>Check GNS3 server version</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gns3server -v
-</code></pre></div></div>
+<pre><code class="language-Shell">gns3server -v
+</code></pre>
 <p>Finally, download the VPN certificate from <em>/root/client.opvn</em></p>
 
 <h2 id="install-and-configure-openvpn-on-windows">Install and configure OpenVPN on Windows</h2>
@@ -253,9 +252,8 @@ sudo reboot
 
 <p>If it is needed to change network configuration on Linux</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vim /etc/network/interfaces
-
-</code></pre></div></div>
+<pre><code class="language-Shell">sudo vim /etc/network/interfaces
+</code></pre>
 
 <p><img src="/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/UbuntuNetworkDHCP.jpg" alt="Ubuntu DHCP" title="Ubuntu DHCP" /></p>
 

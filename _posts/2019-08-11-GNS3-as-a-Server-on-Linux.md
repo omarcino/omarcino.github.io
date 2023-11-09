@@ -69,7 +69,7 @@ sudo reboot
 
 Installing as a root
 
-```
+```Shell
 cd /tmp/
 sudo curl https://raw.githubusercontent.com/GNS3/gns3-server/master/scripts/remote-install.sh > gns3-remote-install.sh
 sudo bash gns3-remote-install.sh --with-openvpn --with-iou --with-i386-repository
@@ -78,7 +78,7 @@ sudo reboot
 
 Check GNS3 server version
 
-```
+```Shell
 gns3server -v
 ```
 Finally, download the VPN certificate from */root/client.opvn*
@@ -177,9 +177,8 @@ The advantages having GNS3 as a server on Linux are:
 
 If it is needed to change network configuration on Linux
 
-```
+```Shell
 sudo vim /etc/network/interfaces
-
 ```
 
 ![Ubuntu DHCP](/assets/images/2019-08-11-GNS3-as-a-Server-on-Linux/UbuntuNetworkDHCP.jpg "Ubuntu DHCP")

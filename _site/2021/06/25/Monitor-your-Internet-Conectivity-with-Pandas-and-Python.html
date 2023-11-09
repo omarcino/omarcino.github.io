@@ -16,8 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Highlighter HighlightJS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/pop.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/pojoaque.min.css">
   </head>
   <body>
   <div class="container">
@@ -84,8 +83,8 @@
 
 <p>Let’s ping  the DNS google server 8.8.8.8</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping -c 100 8.8.8.8
-</code></pre></div></div>
+<pre><code class="language-Shell">ping -c 100 8.8.8.8
+</code></pre>
 
 <p><img src="/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/pings100.jpg" alt="pings" title="pings statistics" /></p>
 
@@ -119,147 +118,147 @@
 
 <p>On Ubuntu</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install python3-venv
-</code></pre></div></div>
+<pre><code class="language-Shell">sudo apt-get install python3-venv
+</code></pre>
 
 <p>On Opensue</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zypper install python3-virtualenv
-</code></pre></div></div>
+<pre><code class="language-Shell">zypper install python3-virtualenv
+</code></pre>
 
 <h3 id="create-the-virtual-environment">Create the Virtual Environment</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir directory-name
+<pre><code class="language-Shell">mkdir directory-name
 cd directory-name
 python3 -m venv venv
 source venv/bin/activate
-</code></pre></div></div>
+</code></pre>
 
 <p>Install libraries</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install pandas
+<pre><code class="language-Shell">pip install pandas
 pip install jupyter
 pip install matplotlib
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="download-code-from-my-github">Download code from my GitHub</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.githubusercontent.com/omarcino/pings-data-analysis/main/pingv4.sh
-</code></pre></div></div>
+<pre><code class="language-Shell">wget https://raw.githubusercontent.com/omarcino/pings-data-analysis/main/pingv4.sh
+</code></pre>
 
 <h3 id="make-scripting-executable">Make scripting executable</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod a+x pingv4.sh
-</code></pre></div></div>
+<pre><code class="language-Shell">chmod a+x pingv4.sh
+</code></pre>
 
 <p>Edit pingv4.sh</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Example
+<pre><code class="language-Shell"># Example
 
 host="8.8.8.8"
 directory="/root/pings"
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="schedule-the-code-to-run-everytime-linux-stars">Schedule the code to run everytime Linux stars</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>contrab -e
+<pre><code class="language-Shell">contrab -e
 @reboot /pathdirectory/pingv4.sh
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="verify-the-script-is-working">Verify the script is working</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tail 2021-05-31.ipv4-8.8.8.8
-</code></pre></div></div>
+<pre><code class="language-Shell">tail 2021-05-31.ipv4-8.8.8.8
+</code></pre>
 
 <h3 id="start-jupyter-notebook-on-linux">Start Jupyter Notebook on Linux</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter notebook --no-browser --port=8888 --allow-root
-</code></pre></div></div>
+<pre><code class="language-Shell">jupyter notebook --no-browser --port=8888 --allow-root
+</code></pre>
 
 <p>You will receive a token value</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Example
+<pre><code class="language-Shell"># Example
 http://localhost:8888/?token=dfddfd@#23
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="connect-windows-power-shell-to-linux-jupyter">Connect Windows Power Shell to Linux Jupyter</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh -N -f -L localhost:8888:localhost:8888 linux-user00@linux-ip-address
-</code></pre></div></div>
+<pre><code class="language-Shell">ssh -N -f -L localhost:8888:localhost:8888 linux-user00@linux-ip-address
+</code></pre>
 
 <h3 id="open-jupyter-notebook-on-your-browser">Open Jupyter Notebook on your browser</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Example
+<pre><code class="language-Shell"># Example
 http://localhost:8888/?token=tokeyGivenByLinuxServer
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="execute-pandas-python-code">Execute Pandas, Python code</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Import libraries ###
-%matplotlib inline
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-import matplotlib.dates as mdates
-from matplotlib.dates import DateFormatter
-from datetime import date
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Import libraries ###
+</span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="n">matplotlib.dates</span> <span class="k">as</span> <span class="n">mdates</span>
+<span class="kn">from</span> <span class="n">matplotlib.dates</span> <span class="kn">import</span> <span class="n">DateFormatter</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">date</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Import log ping file ###
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Import log ping file ###
 # Make sure head is: date time size bytes from ip icmp ttl rtt ms
-pings = pd.read_csv("ping-log-file-name", sep=' ', engine='python')
+</span><span class="n">pings</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_csv</span><span class="p">(</span><span class="sh">"</span><span class="s">ping-log-file-name</span><span class="sh">"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="sh">'</span><span class="s">python</span><span class="sh">'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Formating datetime and rtt time ###
-pings['DateTime'] = pings.date + ' ' + pings.time.str.rstrip(":")
-pings.DateTime = pings.DateTime.astype('datetime64[ns]')
-pings.rtt = pings.rtt.str.strip("time=")
-#
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Formating datetime and rtt time ###
+</span><span class="n">pings</span><span class="p">[</span><span class="sh">'</span><span class="s">DateTime</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pings</span><span class="p">.</span><span class="n">date</span> <span class="o">+</span> <span class="sh">'</span><span class="s"> </span><span class="sh">'</span> <span class="o">+</span> <span class="n">pings</span><span class="p">.</span><span class="n">time</span><span class="p">.</span><span class="nb">str</span><span class="p">.</span><span class="nf">rstrip</span><span class="p">(</span><span class="sh">"</span><span class="s">:</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">pings</span><span class="p">.</span><span class="n">DateTime</span> <span class="o">=</span> <span class="n">pings</span><span class="p">.</span><span class="n">DateTime</span><span class="p">.</span><span class="nf">astype</span><span class="p">(</span><span class="sh">'</span><span class="s">datetime64[ns]</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">pings</span><span class="p">.</span><span class="n">rtt</span> <span class="o">=</span> <span class="n">pings</span><span class="p">.</span><span class="n">rtt</span><span class="p">.</span><span class="nb">str</span><span class="p">.</span><span class="nf">strip</span><span class="p">(</span><span class="sh">"</span><span class="s">time=</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1">#
 # Considering 2000 [ms] as lost packet
-pings.rtt = pings.rtt.fillna(2000)
-pings.rtt = pings.rtt.astype('float')
+</span><span class="n">pings</span><span class="p">.</span><span class="n">rtt</span> <span class="o">=</span> <span class="n">pings</span><span class="p">.</span><span class="n">rtt</span><span class="p">.</span><span class="nf">fillna</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+<span class="n">pings</span><span class="p">.</span><span class="n">rtt</span> <span class="o">=</span> <span class="n">pings</span><span class="p">.</span><span class="n">rtt</span><span class="p">.</span><span class="nf">astype</span><span class="p">(</span><span class="sh">'</span><span class="s">float</span><span class="sh">'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### New df that only have DateTime and rtt ###
-pings_v2 = pings[['DateTime', 'rtt']].copy()
-pings_v2 = pings_v2.set_index(pings_v2.DateTime)
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### New df that only have DateTime and rtt ###
+</span><span class="n">pings_v2</span> <span class="o">=</span> <span class="n">pings</span><span class="p">[[</span><span class="sh">'</span><span class="s">DateTime</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rtt</span><span class="sh">'</span><span class="p">]].</span><span class="nf">copy</span><span class="p">()</span>
+<span class="n">pings_v2</span> <span class="o">=</span> <span class="n">pings_v2</span><span class="p">.</span><span class="nf">set_index</span><span class="p">(</span><span class="n">pings_v2</span><span class="p">.</span><span class="n">DateTime</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Getting samples every 5 ### minutes
-pings5min = pings_v2.resample('5T').mean()
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Getting samples every 5 ### minutes
+</span><span class="n">pings5min</span> <span class="o">=</span> <span class="n">pings_v2</span><span class="p">.</span><span class="nf">resample</span><span class="p">(</span><span class="sh">'</span><span class="s">5T</span><span class="sh">'</span><span class="p">).</span><span class="nf">mean</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### To zoom-in unccomment the next line ###
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### To zoom-in unccomment the next line ###
 #pings5min = pings5min.loc['2021-05-30 17:00:00':'2021-05-30 19:00:00']
+</span></code></pre></div></div>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Re numerate index 0, 1, 2, ... ###
+</span><span class="n">pings5min</span> <span class="o">=</span> <span class="n">pings5min</span><span class="p">.</span><span class="nf">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Re numerate index 0, 1, 2, ... ###
-pings5min = pings5min.reset_index(drop=False)
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Create figure and plot ### space
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="nf">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Create figure and plot ### space
-fig, ax = plt.subplots(figsize=(15, 5))
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Add x-axis and y-axis ###
+</span><span class="n">ax</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">pings5min</span><span class="p">.</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">pings5min</span><span class="p">.</span><span class="n">rtt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">'</span><span class="s">8.8.8.8</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">'</span><span class="s">Pings - 5/30/21</span><span class="sh">'</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="sh">'</span><span class="s">fontsize</span><span class="sh">'</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">'</span><span class="s">HH:MM</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">'</span><span class="s">ms</span><span class="sh">'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Add x-axis and y-axis ###
-ax.plot(pings5min.DateTime, pings5min.rtt, label='8.8.8.8')
-plt.title('Pings - 5/30/21', fontdict={'fontsize': 20})
-plt.xlabel('HH:MM')
-plt.ylabel('ms')
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Define the date format ###
+</span><span class="n">date_form</span> <span class="o">=</span> <span class="nc">DateFormatter</span><span class="p">(</span><span class="sh">'</span><span class="s">%H:%M</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">xaxis</span><span class="p">.</span><span class="nf">set_major_formatter</span><span class="p">(</span><span class="n">date_form</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Define the date format ###
-date_form = DateFormatter('%H:%M')
-ax.xaxis.set_major_formatter(date_form)
-plt.legend()
-</code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### To save graph. Uncomment ### the next line
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### To save graph. Uncomment ### the next line
 #plt.savefig('SouthClayton', dpi=300)
-</code></pre></div></div>
+</span></code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Get the graph ###
-plt.show()
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### Get the graph ###
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
 </code></pre></div></div>
 
 <h2 id="graph-examples">Graph examples</h2>

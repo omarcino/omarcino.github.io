@@ -32,13 +32,13 @@ img {
 blockquote {
   font-size: 1.2em;
   width: 100%;
-  margin: 50px auto;
+  margin: 10px auto;
   font-family: Open Sans;
   font-style: italic;
   color: #555555;
-  padding: 1.2em 30px 1.2em 75px;
+  padding: 1.2em 30px 1.2em 15px;
   border-left: 8px solid #3E4249;
-  line-height: 1.6;
+  line-height: 1;
   position: relative;
   background: #EDEDED;
 }
