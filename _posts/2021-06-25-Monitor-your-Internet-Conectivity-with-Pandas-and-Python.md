@@ -50,7 +50,7 @@ Therefore **x[%]** of packet lost means:
 
 Considering that a lost packet has a **RTT ≥ 2000 [ms].** We can use the following formula to know the equivalent of packet lost into **[ms]**
 
-![Equation](/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/pings100.jpg "Equation")
+![Equation](/assets/images/2021-06-25-Monitor-your-Internet-Conectivity-with-Pandas-and-Python/Equation.jpg "Equation")
 
 *Equation deducted by Omar N*
 
